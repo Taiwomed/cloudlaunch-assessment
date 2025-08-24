@@ -64,8 +64,7 @@
             ],
             "Resource": "*"
         }
-    ]
-}r`
+    ]`
 - CloudLaunchVPCReadOnlyPolicy:
   `{
     "Version": "2012-10-17",
