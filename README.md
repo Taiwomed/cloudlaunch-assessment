@@ -17,6 +17,73 @@
   - `CloudLaunchS3Policy`
   - `IAMUserChangePassword`
   - `CloudLaunchVPCReadOnlyPolicy`
+  - CloudLaunchS3Policy:
+`{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "ListAllBuckets",
+            "Effect": "Allow",
+            "Action": [
+                "s3:ListBucket",
+                "s3:ListAllMyBuckets"
+            ],
+            "Resource": [
+                "arn:aws:s3:::cloud-launchsite-bucket",
+                "arn:aws:s3:::cloud-launch-private-bucket",
+                "arn:aws:s3:::cloudlaunch-visible-only-bucket9",
+                "arn:aws:s3:::*"
+            ]
+        },
+        {
+            "Sid": "SiteBucketRead",
+            "Effect": "Allow",
+            "Action": "s3:GetObject",
+            "Resource": "arn:aws:s3:::cloud-launchsite-bucket/*"
+        },
+        {
+            "Sid": "PrivateBucketReadWrite",
+            "Effect": "Allow",
+            "Action": [
+                "s3:GetObject",
+                "s3:PutObject"
+            ],
+            "Resource": "arn:aws:s3:::cloud-launch-private-bucket/*"
+        }
+    ]
+}`
+- IAMUserChangePassword:
+  `{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "iam:ChangePassword",
+                "iam:GetAccountPasswordPolicy"
+            ],
+            "Resource": "*"
+        }
+    ]
+}r`
+- CloudLaunchVPCReadOnlyPolicy:
+  `{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VPCReadOnly",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:DescribeVpcs",
+                "ec2:DescribeSubnets",
+                "ec2:DescribeRouteTables",
+                "ec2:DescribeInternetGateways",
+                "ec2:DescribeSecurityGroups"
+            ],
+            "Resource": "*"
+        }
+    ]
+}`
 
 ### Permission Tests
 - **List**: All buckets listed in S3 console as `cloudlaunch-user`.
